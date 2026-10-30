@@ -1,11 +1,15 @@
 from fastapi import FastAPI
-from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
-load_dotenv()
+app = FastAPI()
 
-app = FastAPI(title="Ciren Hackathon API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-
-@app.get("/")
-def read_root():
-    return {"status": "ok"}
+@app.get("/api/hello")
+def hello():
+    return {"message": "Hello from FastAPI"}
